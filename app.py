@@ -9,9 +9,24 @@ def translate(word):
     if word in data:
         return data["word"]
     elif len(get_close_matches(word, data.keys())) > 0:
-        return f"Did you mean '{get_close_matches(word, data.keys())[0]}'?"
+        suggestion = get_close_matches(word, data.keys())[0]
+        yn = input(
+            f"Did you mean '{suggestion}'? Enter Y if yes, or N if no: ")
+        if yn.upper() == "Y":
+            return data[suggestion]
+        elif yn.upper() == "N":
+            return "This word does not exists in the dictionary."
+        else:
+            return "The input was not recognized."
     else:
         return "This word does not exists in the dictionary."
 
+
 word = input("Enter a word: ")
-print(translate(word))
+output = translate(word)
+
+if type(output) == list:
+    for item in output:
+        print(item)
+else:
+    print(output)
