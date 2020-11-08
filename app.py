@@ -8,6 +8,8 @@ def translate(word):
     word.lower()
     if word in data:
         return data["word"]
+    elif word.title() in data: #if user entered "texas" this will check for "Texas" as well.
+        return data[word.title()]
     elif len(get_close_matches(word, data.keys())) > 0:
         suggestion = get_close_matches(word, data.keys())[0]
         yn = input(
